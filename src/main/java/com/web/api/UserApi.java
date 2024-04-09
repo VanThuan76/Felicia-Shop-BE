@@ -55,9 +55,9 @@ public class UserApi {
     /*token device get from firebase*/
     @PostMapping("/login")
     public TokenDto authenticate(@RequestBody LoginDto loginDto) throws Exception {
-        User u = new User();
-        u.setPassword(passwordEncoder.encode("admin"));
-        userRepository.save(u);
+//        User u = new User();
+//        u.setPassword(passwordEncoder.encode("admin"));
+//        userRepository.save(u);
         TokenDto tokenDto = userService.login(loginDto.getUsername(), loginDto.getPassword(), loginDto.getTokenFcm());
         return tokenDto;
     }

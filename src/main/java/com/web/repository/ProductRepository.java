@@ -23,4 +23,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("select p from Product p where p.name like ?1")
     public Page<Product> findAllByParam(String param, Pageable pageable);
 
+    @Query("select p from Product p where p.name like ?1 and p.category.id = ?2")
+    Page<Product> findByParamAndCate(String s, Long categoryId, Pageable pageable);
 }

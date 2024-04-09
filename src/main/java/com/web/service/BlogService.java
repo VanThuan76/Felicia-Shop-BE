@@ -33,9 +33,6 @@ public class BlogService{
     private CommonPage commonPage;
 
     public BlogResponse save(BlogRequest request) {
-        if(request.getPrimaryBlog() == true){
-            blogRepository.unSetPrimary();
-        }
         Blog blog = blogMapper.requestToBlog(request);
         blog.setUser(userUtils.getUserWithAuthority());
         blog.setCreatedDate(new Date(System.currentTimeMillis()));
@@ -44,9 +41,6 @@ public class BlogService{
     }
 
     public BlogResponse update(BlogRequest request) {
-        if(request.getPrimaryBlog() == true){
-            blogRepository.unSetPrimary();
-        }
         Blog blog = blogMapper.requestToBlog(request);
         blog.setUser(userUtils.getUserWithAuthority());
         blog.setCreatedDate(new Date(System.currentTimeMillis()));
@@ -59,9 +53,6 @@ public class BlogService{
         if (blog.isEmpty()){
             throw new MessageException("Blog not found");
         }
-        if(blog.get().getPrimaryBlog()){
-            throw new MessageException("Blog is primary, can't delete");
-        }
         blogRepository.delete(blog.get());
     }
 
@@ -73,13 +64,6 @@ public class BlogService{
         return blogMapper.blogToResponse(blog.get());
     }
 
-    public BlogResponse blogPrimary() {
-        Optional<Blog> blog = blogRepository.blogPrimary();
-        if (blog.isEmpty()){
-            throw new MessageException("Blog not found");
-        }
-        return blogMapper.blogToResponse(blog.get());
-    }
 
     public Page<BlogResponse> findAll(Pageable pageable) {
         Page<Blog> page = blogRepository.findAll(pageable);

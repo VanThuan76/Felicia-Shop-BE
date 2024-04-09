@@ -20,11 +20,7 @@ public class Blog {
 
     private String title;
 
-    private String description;
-
     private String content;
-
-    private Boolean primaryBlog;
 
     private String imageBanner;
 

@@ -1,7 +1,6 @@
 package com.web.service;
 
 import com.web.entity.Category;
-import com.web.enums.CategoryType;
 import com.web.exception.MessageException;
 import com.web.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,11 +11,4 @@ import java.util.Optional;
 
 public interface BlogRepository extends JpaRepository<Blog,Long> {
 
-    @Modifying
-    @Transactional
-    @Query("update Blog b set b.primaryBlog = false")
-    int unSetPrimary();
-
-    @Query("select b from Blog b where b.primaryBlog = true")
-    public Optional<Blog> blogPrimary();
 }
