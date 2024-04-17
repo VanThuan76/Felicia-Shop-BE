@@ -22,6 +22,8 @@ public class Blog {
 
     private String content;
 
+    private String description;
+
     private String imageBanner;
 
     @ManyToOne

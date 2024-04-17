@@ -2,6 +2,7 @@ package com.web.api;
 
 import com.web.dto.request.BlogRequest;
 import com.web.dto.response.BlogResponse;
+import com.web.entity.Blog;
 import com.web.entity.Category;
 import com.web.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,9 @@ public class BlogApi {
     @Autowired
     private BlogService blogService;
 
-    @PostMapping("/admin/create")
-    public ResponseEntity<?> save(@RequestBody BlogRequest blogRequest){
-        BlogResponse result = blogService.save(blogRequest);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/admin/update")
-    public ResponseEntity<?> update(@RequestBody BlogRequest blogRequest){
-        BlogResponse result = blogService.save(blogRequest);
+    @PostMapping("/admin/create-or-update")
+    public ResponseEntity<?> save(@RequestBody Blog blog){
+        Blog result = blogService.save(blog);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
@@ -41,16 +36,24 @@ public class BlogApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/public/findAll")
-    public ResponseEntity<?> findAll(Pageable pageable){
-        Page<BlogResponse> result = blogService.findAll(pageable);
+    @GetMapping("/public/findAll-list")
+    public ResponseEntity<?> findAllList(){
+        List<Blog> result = blogService.findAll();
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @GetMapping("/public/findById")
-    public ResponseEntity<?> findById(@RequestParam("id") Long id){
-        BlogResponse result = blogService.findById(id);
+    @GetMapping("/public/findAll-page")
+    public ResponseEntity<?> findAllPage(Pageable pageable){
+        Page<Blog> result = blogService.findAll(pageable);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+
+    @GetMapping("/public/findById")
+    public ResponseEntity<?> findById(@RequestParam("id") Long id){
+        Blog result = blogService.findById(id);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
 
 }

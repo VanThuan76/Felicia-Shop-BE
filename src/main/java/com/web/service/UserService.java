@@ -81,7 +81,7 @@ public class UserService  {
                     if(exist.getActivation_key() != null){
                         throw new MessageException("Tài khoản chưa được kích hoạt", 330);
                     }
-                    throw new MessageException("Ẻmail đã được sử dụng", 400);
+                    throw new MessageException("Email đã được sử dụng", 400);
                 });
         user.setCreatedDate(new Date(System.currentTimeMillis()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));

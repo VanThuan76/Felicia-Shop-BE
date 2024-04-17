@@ -44,9 +44,6 @@ public class Invoice {
 
     private Timestamp statusUpdateDate;
 
-    @ManyToOne
-    @JoinColumn(name = "voucher_id")
-    private Voucher voucher;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

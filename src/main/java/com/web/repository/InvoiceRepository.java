@@ -15,10 +15,6 @@ import java.util.List;
 
 public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
 
-    @Modifying
-    @Transactional
-    @Query("update Invoice i set i.voucher = null where i.voucher.id = ?1")
-    int setNullVoucher(Long voucherId);
 
     @Query("select i from Invoice i where i.user.id = ?1")
     public List<Invoice> findByUser(Long userId);

@@ -2,6 +2,7 @@ package com.web.api;
 
 import com.web.dto.request.ProductRequest;
 import com.web.dto.response.ProductResponse;
+import com.web.entity.Blog;
 import com.web.entity.Product;
 import com.web.mapper.ProductMapper;
 import com.web.service.ProductService;
@@ -60,5 +61,9 @@ public class ProductApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @GetMapping("/public/findAll-list")
+    public ResponseEntity<?> findAllList(){
+        List<Product> result = productService.findAll();
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }

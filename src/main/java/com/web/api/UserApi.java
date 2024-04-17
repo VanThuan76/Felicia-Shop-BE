@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -90,11 +92,15 @@ public class UserApi {
     }
 
     @GetMapping("/admin/get-user-by-role")
-    public ResponseEntity<?> getUserByRole(@RequestParam(value = "role", required = false) String role,
-                                           @RequestParam(value = "q", required = false) String search,
-                                           Pageable pageable){
-        Page<UserDto> userDtos = userService.getUserByRole("%"+search+"%",role,pageable);
-        return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    public ResponseEntity<?> getUserByRole(@RequestParam(value = "role", required = false) String role){
+        List<User> list = new ArrayList<>();
+        if(role != null){
+            list = userRepository.getUserByRole(role);
+        }
+        else{
+            list = userRepository.findAll();
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/admin/check-role-admin")
@@ -142,4 +148,12 @@ public class UserApi {
         userService.xacNhanDatLaiMatKhau(email, password, key);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/user/user-logged")
+    public ResponseEntity<?> userLogged() throws URISyntaxException {
+        User user = userUtils.getUserWithAuthority();
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
+
 }

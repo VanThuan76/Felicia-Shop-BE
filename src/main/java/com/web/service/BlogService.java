@@ -3,6 +3,7 @@ package com.web.service;
 import com.web.dto.request.BlogRequest;
 import com.web.dto.response.BlogResponse;
 import com.web.entity.Blog;
+import com.web.entity.Category;
 import com.web.exception.MessageException;
 import com.web.mapper.BlogMapper;
 import com.web.repository.BlogRepository;
@@ -26,27 +27,13 @@ public class BlogService{
     @Autowired
     private UserUtils userUtils;
 
-    @Autowired
-    private BlogMapper blogMapper;
-
-    @Autowired
-    private CommonPage commonPage;
-
-    public BlogResponse save(BlogRequest request) {
-        Blog blog = blogMapper.requestToBlog(request);
+    public Blog save(Blog blog) {
         blog.setUser(userUtils.getUserWithAuthority());
         blog.setCreatedDate(new Date(System.currentTimeMillis()));
         Blog result = blogRepository.save(blog);
-        return blogMapper.blogToResponse(result);
+        return result;
     }
 
-    public BlogResponse update(BlogRequest request) {
-        Blog blog = blogMapper.requestToBlog(request);
-        blog.setUser(userUtils.getUserWithAuthority());
-        blog.setCreatedDate(new Date(System.currentTimeMillis()));
-        Blog result = blogRepository.save(blog);
-        return blogMapper.blogToResponse(result);
-    }
 
     public void delete(Long id) {
         Optional<Blog> blog = blogRepository.findById(id);
@@ -56,19 +43,20 @@ public class BlogService{
         blogRepository.delete(blog.get());
     }
 
-    public BlogResponse findById(Long id) {
+    public Blog findById(Long id) {
         Optional<Blog> blog = blogRepository.findById(id);
         if (blog.isEmpty()){
             throw new MessageException("Blog not found");
         }
-        return blogMapper.blogToResponse(blog.get());
+        return blog.get();
     }
 
-
-    public Page<BlogResponse> findAll(Pageable pageable) {
-        Page<Blog> page = blogRepository.findAll(pageable);
-        List<BlogResponse> list = blogMapper.listBlogToResponse(page.getContent());
-        Page<BlogResponse> result = commonPage.restPage(page, list);
-        return result;
+    public List<Blog> findAll(){
+        return blogRepository.findAll();
     }
+
+    public Page<Blog> findAll(Pageable pageable){
+        return blogRepository.findAll(pageable);
+    }
+
 }

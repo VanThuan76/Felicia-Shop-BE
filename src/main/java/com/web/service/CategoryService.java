@@ -22,8 +22,15 @@ public class CategoryService {
     }
 
     public Category save(Category category) {
-        if(categoryRepository.findByName(category.getName()).isPresent()){
-            throw new MessageException("Tên danh mục đã tồn tại");
+        if(category.getId() == null){
+            if(categoryRepository.findByName(category.getName()).isPresent()){
+                throw new MessageException("Tên danh mục đã tồn tại");
+            }
+        }
+        else{
+            if(categoryRepository.findByNameAndId(category.getName(), category.getId()).isPresent()){
+                throw new MessageException("Tên danh mục đã tồn tại", 400);
+            }
         }
         Category result = categoryRepository.save(category);
         return result;

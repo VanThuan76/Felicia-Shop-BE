@@ -4,12 +4,12 @@ import com.web.constants.LogUtils;
 import com.web.constants.RequestType;
 import com.web.dto.request.PaymentDto;
 import com.web.dto.response.ResponsePayment;
-import com.web.entity.Voucher;
+import com.web.exception.MessageException;
 import com.web.models.PaymentResponse;
 import com.web.models.QueryStatusTransactionResponse;
 import com.web.processor.CreateOrderMoMo;
 import com.web.processor.QueryTransactionStatus;
-import com.web.service.VoucherService;
+import com.web.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +20,16 @@ import java.util.Optional;
 @CrossOrigin
 public class MomoApi {
 
-
     @Autowired
-    private VoucherService voucherService;
+    private CartService cartService;
+
 
     @PostMapping("/urlpayment")
     public ResponsePayment getUrlPayment(@RequestBody PaymentDto paymentDto){
         LogUtils.init();
+        Double totalAmount = cartService.totalAmountCart();
 
-        Long td = Math.round(0D);
+        Long td = Math.round(totalAmount);
         String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
         Environment environment = Environment.selectEnv("dev");

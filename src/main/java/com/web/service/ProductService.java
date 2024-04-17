@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -71,6 +72,9 @@ public class ProductService {
         if (categoryId != null) {
             page = productRepository.findByParamAndCate("%" + param + "%", categoryId, pageable);
         }
+        else{
+            page = productRepository.findAllByParam("%" + param + "%", pageable);
+        }
         return page;
     }
 
@@ -84,4 +88,7 @@ public class ProductService {
     }
 
 
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
 }

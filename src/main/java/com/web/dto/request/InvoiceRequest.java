@@ -19,7 +19,9 @@ public class InvoiceRequest {
 
     private String address;
 
-    private String voucherCode;
+    private String fullname;
+
+    private String phone;
 
     private String note;
 

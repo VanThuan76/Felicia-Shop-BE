@@ -64,8 +64,8 @@ public class InvoiceService {
         }
         Invoice invoice = new Invoice();
         invoice.setNote(invoiceRequest.getNote());
-        invoice.setReceiverName(user.getFullname());
-        invoice.setPhone(user.getPhone());
+        invoice.setReceiverName(invoiceRequest.getFullname());
+        invoice.setPhone(invoiceRequest.getPhone());
         invoice.setAddress(invoiceRequest.getAddress());
         invoice.setCreatedDate(new Date(System.currentTimeMillis()));
         invoice.setCreatedTime(new Time(System.currentTimeMillis()));

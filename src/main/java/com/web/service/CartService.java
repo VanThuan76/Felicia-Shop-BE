@@ -52,15 +52,15 @@ public class CartService{
         return list;
     }
 
-    public void upQuantity(Long id) {
+    public void upQuantity(Long id, Integer quantity) {
         Cart cart = cartRepository.findById(id).get();
-        cart.setQuantity(cart.getQuantity() + 1);
+        cart.setQuantity(cart.getQuantity() + quantity);
         cartRepository.save(cart);
     }
 
-    public void downQuantity(Long id) {
+    public void downQuantity(Long id, Integer quantity) {
         Cart cart = cartRepository.findById(id).get();
-        cart.setQuantity(cart.getQuantity() - 1);
+        cart.setQuantity(cart.getQuantity() + quantity);
         if(cart.getQuantity() == 0){
             cartRepository.deleteById(id);
             return;
