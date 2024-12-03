@@ -25,4 +25,5 @@ public class InvoiceRequest {
 
     private String note;
 
+    private String codeVoucher;
 }

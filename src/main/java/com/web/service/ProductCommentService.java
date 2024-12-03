@@ -2,7 +2,6 @@ package com.web.service;
 
 import com.web.dto.request.CommentRequest;
 import com.web.dto.response.ProductCommentResponse;
-import com.web.entity.Product;
 import com.web.entity.ProductComment;
 import com.web.entity.ProductCommentImage;
 import com.web.exception.MessageException;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class ProductCommentServiceImp {
+public class ProductCommentService {
 
     @Autowired
     private ProductCommentRepository productCommentRepository;

@@ -49,7 +49,7 @@ public class ProductCommentMapper {
         for(ProductComment p : list){
             ProductCommentResponse pro = productCmtToProductCommentRes(p);
             if(user != null){
-                if(user.getId() == pro.getUser().getId()){
+                if(user.getId() == p.getUser().getId()){
                     pro.setIsMyComment(true);
                 }
             }

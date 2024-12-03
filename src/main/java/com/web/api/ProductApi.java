@@ -1,6 +1,7 @@
 package com.web.api;
 
 import com.web.dto.request.ProductRequest;
+import com.web.dto.request.SearchDto;
 import com.web.dto.response.ProductResponse;
 import com.web.entity.Blog;
 import com.web.entity.Product;
@@ -64,6 +65,31 @@ public class ProductApi {
     @GetMapping("/public/findAll-list")
     public ResponseEntity<?> findAllList(){
         List<Product> result = productService.findAll();
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/public/san-pham-ban-chay")
+    public ResponseEntity<?> sanPhamBanChay(){
+        List<Product> result = productService.sanPhamBanChay();
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/public/san-pham-lien-quan")
+    public ResponseEntity<?> spLienQuan(@RequestParam("id") Long idProduct){
+        List<Product> result = productService.sanPhamLienQuan(idProduct);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/public/search-san-pham")
+    public ResponseEntity<?> searchSp(@RequestParam(value = "idcategory", required = false) Long idcate,
+                                      @RequestParam(value = "search", required = false) String search, Pageable pageable){
+        Page<Product> result = productService.timKiemSanPham(idcate,search,pageable);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @PostMapping("/public/search-full-san-pham")
+    public ResponseEntity<?> searchFullSp(@RequestBody SearchDto search, Pageable pageable){
+        Page<Product> result = productService.searchFull(search,pageable);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

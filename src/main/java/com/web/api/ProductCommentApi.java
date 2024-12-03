@@ -1,10 +1,8 @@
 package com.web.api;
 
 import com.web.dto.request.CommentRequest;
-import com.web.dto.request.UserAdressRequest;
 import com.web.dto.response.ProductCommentResponse;
-import com.web.dto.response.UserAdressResponse;
-import com.web.servive.ProductCommentService;
+import com.web.service.ProductCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

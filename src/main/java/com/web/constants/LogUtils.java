@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
  * @author uyen.tran
  */
 public class LogUtils {
-     static Logger logger;
+     static Logger logger ;
 
     public static void init(){
         logger = Logger.getLogger(LogUtils.class);

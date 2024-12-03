@@ -35,7 +35,11 @@ public class Product {
 
     private Integer quantitySold;
 
+    private String expiry;
+
     private Boolean deleted = false;
+
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

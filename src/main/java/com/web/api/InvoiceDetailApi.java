@@ -1,9 +1,9 @@
 package com.web.api;
 
-import com.web.dto.response.InvoiceDetailResponse;
 import com.web.dto.response.ProductResponse;
+import com.web.entity.InvoiceDetail;
+import com.web.repository.InvoiceDetailRepository;
 import com.web.repository.InvoiceRepository;
-import com.web.servive.InvoiceDetailService;
 import com.web.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,24 +20,19 @@ import java.util.List;
 public class InvoiceDetailApi {
 
     @Autowired
-    private InvoiceDetailService invoiceDetailService;
-
-    @Autowired
-    private InvoiceRepository invoiceRepository;
+    private InvoiceDetailRepository invoiceDetailRepository;
 
     @Autowired
     private UserUtils userUtils;
 
     @GetMapping("/user/find-by-invoice")
     public ResponseEntity<?> findByInvoice(@RequestParam("idInvoice") Long idInvoice){
-        List<InvoiceDetailResponse> response = invoiceDetailService.findByInvoice(idInvoice);
+        List<InvoiceDetail> response = invoiceDetailRepository.findByInvoiceId(idInvoice);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
     @GetMapping("/admin/find-by-invoice")
     public ResponseEntity<?> findByInvoiceAdmin(@RequestParam("idInvoice") Long idInvoice){
-        List<InvoiceDetailResponse> response = invoiceDetailService.findByInvoice(idInvoice);
+        List<InvoiceDetail> response = invoiceDetailRepository.findByInvoiceId(idInvoice);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
 }
