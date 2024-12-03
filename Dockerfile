@@ -1,13 +1,7 @@
-# Build stage
-FROM maven:3-eclipse-temurin-17 AS build
+FROM openjdk:11-jdk-slim
 WORKDIR /app
 COPY . /app
-
-# Bỏ qua bước xử lý tài nguyên
-RUN mvn clean package -DskipTests -DskipResources
-
-# Final stage
-FROM eclipse-temurin:17-jdk as runtime
-COPY --from=build /app/target/*.jar demo.jar
+RUN chmod +x ./mvnw  # Cấp quyền thực thi cho mvnw
+RUN ./mvnw clean install
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+CMD ["java", "-jar", "target/app.jar"]
